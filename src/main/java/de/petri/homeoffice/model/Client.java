@@ -1,0 +1,87 @@
+package de.petri.homeoffice.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
+
+@NamedQueries({ @NamedQuery(name = Client.findByUser, query = "SELECT a FROM Client a") })
+@Entity
+public class Client {
+
+	public static final String findByUser = "Client.findByUser";
+
+	@GeneratedValue
+	@Id
+	private Long id;
+
+	@NotNull(message = "Bitte eine Kurzbezeichnung angeben.")
+	private String shortName;
+
+	@NotNull(message = "Bitte ein ClientTyp angeben.")
+	private ClientType clientType;
+
+	/*
+	@ManyToOne
+	private User user;
+*/
+	public Client() {
+
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public ClientType getClientType() {
+		return clientType;
+	}
+
+	public void setClientType(ClientType clientType) {
+		this.clientType = clientType;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param user
+	 *            the user to set
+	 */
+	/*
+	public void setUser(User user) {
+		this.user = user;
+	}
+*/
+	/**
+	 * @return the user
+	 */
+	/*
+	public User getUser() {
+		return user;
+	}
+*/
+	public enum ClientType {
+		FIRMA, PRIVATPERSON
+
+	}
+}
