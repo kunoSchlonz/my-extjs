@@ -38,12 +38,12 @@ public class ClientServiceTest {
 	@Test
 	public void testAddClient() throws Exception {
 		Assert.assertNotNull(clientService);
-		/*
+		
 		Client c = TestDataFactory.createTestClient();
 		Assert.assertNotNull(c);
 		Client x = clientService.addClient(c);
 		Assert.assertEquals(x, c);
-		*/
+		
 	}
 
 }
