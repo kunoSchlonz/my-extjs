@@ -48,6 +48,11 @@ public class ClientServiceTest {
 	@Test
 	public void testUpdateClient() throws Exception {
 		Assert.assertNotNull(clientService);
+		Client c = TestDataFactory.createTestClient();
+		System.err.println("############################################################: "+c.getId());
+		Client x = clientService.addClient(c);
+		System.err.println("############################################################: "+c.getId());
+		System.err.println("############################################################: "+x.getId());
 	}
 	
 	
