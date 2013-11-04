@@ -45,7 +45,6 @@ public class ClientServiceTest {
 		Assert.assertNotNull(c);
 		Client x = clientService.addClient(c);
 		Assert.assertEquals(x, c);
-
 	}
 
 	@Test
@@ -63,7 +62,6 @@ public class ClientServiceTest {
 		Client z = clientService.getClient(id);
 		Assert.assertNotNull(z);
 		Assert.assertTrue(z.getShortName() == "bbb");
-
 	}
 
 	@Test
