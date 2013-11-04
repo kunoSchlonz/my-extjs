@@ -1,5 +1,8 @@
 package de.petri.homeoffice.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -44,26 +47,103 @@ public class ClientServiceTest {
 		Assert.assertEquals(x, c);
 
 	}
-	
+
 	@Test
 	public void testUpdateClient() throws Exception {
 		Assert.assertNotNull(clientService);
-		Client c = TestDataFactory.createTestClient();
-		System.err.println("############################################################: "+c.getId());
-		Client x = clientService.addClient(c);
-		System.err.println("############################################################: "+c.getId());
-		System.err.println("############################################################: "+x.getId());
+		Client c = TestDataFactory.createTestClient("aaa");
+		clientService.addClient(c);
+		Long id = c.getId();
+
+		Client u = clientService.getClient(id);
+		Assert.assertNotNull(u);
+		u.setShortName("bbb");
+		clientService.updateClient(u);
+
+		Client z = clientService.getClient(id);
+		Assert.assertNotNull(z);
+		Assert.assertTrue(z.getShortName() == "bbb");
+
 	}
-	
-	
+
 	@Test
 	public void testDeleteClient() throws Exception {
 		Assert.assertNotNull(clientService);
+
+		Client c = TestDataFactory.createTestClient();
+		clientService.addClient(c);
+
+		List<Client> clist = clientService.getAllClients();
+		Assert.assertFalse(clist.size() == 0);
+
+		for (Iterator<Client> iterator = clist.iterator(); iterator.hasNext();) {
+			Client client = (Client) iterator.next();
+			clientService.deleteClient(client);
+		}
+		clist = clientService.getAllClients();
+		Assert.assertTrue(clist.size() == 0);
+
+		c = null;
+		c = TestDataFactory.createTestClient("a");
+		clientService.addClient(c);
+		clist = clientService.getAllClients();
+		Assert.assertFalse(clist.size() == 0);
+
+		for (Iterator<Client> iterator = clist.iterator(); iterator.hasNext();) {
+			Client client = (Client) iterator.next();
+			clientService.deleteClient(client.getId());
+		}
+		clist = clientService.getAllClients();
+		Assert.assertTrue(clist.size() == 0);
+
 	}
 
 	@Test
 	public void testListClients() throws Exception {
 		Assert.assertNotNull(clientService);
+		Assert.assertTrue(deleteAllClients());
+
+		for (int i = 0; i < 1000; i++) {
+			clientService.addClient(TestDataFactory
+					.createTestClient("aaa_" + i));
+		}
+		List<Client> clist = clientService.getAllClients();
+		Assert.assertTrue(clist.size() > 0);
+		Assert.assertTrue(clist.size() == 1000);
+
 	}
-	
+
+	public boolean deleteAllClients() {
+		boolean ret = true;
+		List<Client> clist = clientService.getAllClients();
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Vor dem Löschen "
+						+ clist.size());
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		for (Iterator<Client> iterator = clist.iterator(); iterator.hasNext();) {
+			Client client = (Client) iterator.next();
+			clientService.deleteClient(client);
+		}
+		clist = clientService.getAllClients();
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Nach dem Löschen"
+						+ clist.size());
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		System.out
+				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		if (clist.size() != 0) {
+			ret = false;
+		}
+
+		return ret;
+	}
+
 }
