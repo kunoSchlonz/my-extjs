@@ -4,10 +4,13 @@ This is an Example Extjs Java Application.
 
 Roadmap
 --------
-- (check) Adding a Simple Testcase
-- Implement an ExtJs Frontend (Table and Form)
-- Implement an HTML5 Fileupload with Progressbar
-- Add a oneToMany dependency Client 1:n Address
+- v1
+- - (check) Adding a Simple Testcase
+- - Implement an ExtJs Frontend (Table and Form)
+- - Implement an HTML5 Fileupload with Progressbar
+- - Add a oneToMany dependency Client 1:n Address
+- v2
+- - Implement docx4j
 
 Usage
 --------
