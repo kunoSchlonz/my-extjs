@@ -10,6 +10,8 @@ Roadmap
 - - Implement an HTML5 Fileupload with Progressbar
 - - Add a oneToMany dependency Client 1:n Address
 - v2
+- - Add User security
+- v3
 - - Implement docx4j
 
 Usage

@@ -34,17 +34,17 @@ public class ClientListProducer {
             return clientList;
     }
 
-    public void onAktionAdded(@Observes @Added Client aClient) {
+    public void onClientAdded(@Observes @Added Client aClient) {
             cs.addClient(aClient);
             init();
     }
     
-    public void onAktionDeleted(@Observes @Deleted Client aClient) {
+    public void onClientDeleted(@Observes @Deleted Client aClient) {
             cs.deleteClient(aClient);
             init();
     }
 
-    public void onAktionUpdated(@Observes @Updated Client aClient) {
+    public void onClientUpdated(@Observes @Updated Client aClient) {
             cs.updateClient(aClient);
             init();
     }

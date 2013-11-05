@@ -1,9 +1,10 @@
 package de.petri.homeoffice.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
@@ -23,7 +24,10 @@ public class Client {
 
 	@NotNull(message = "Bitte ein ClientTyp angeben.")
 	private ClientType clientType;
+	
+	private Date createDate = new Date();
 
+	
 	/*
 	@ManyToOne
 	private User user;
@@ -62,6 +66,14 @@ public class Client {
 	public Long getId() {
 		return id;
 	}
+
+	/**
+	 * @return the createDate
+	 */
+	public Date getCreateDate() {
+		return createDate;
+	}
+
 
 	/**
 	 * @param user
