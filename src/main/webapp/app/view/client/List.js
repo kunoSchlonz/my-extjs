@@ -1,23 +1,12 @@
 Ext.define('HO.view.client.List', {
     extend : 'Ext.grid.Panel',
     alias : 'widget.clientlist',
-    onAddClick : function(a) {
-        console.log('add ' + a);
-    },
     dockedItems : [{
         xtype : 'toolbar',
         items : [{
             iconCls : 'icon-add',
             text : 'Add',
-            scope : this,
-            handler : this.onAddClick
-        }, {
-            iconCls : 'icon-delete',
-            text : 'Delete',
-            disabled : true,
-            itemId : 'delete',
-            scope : this,
-            handler : this.onDeleteClick
+            action : 'add'
         }]
     }, {
         weight : 2,
@@ -72,11 +61,11 @@ Ext.define('HO.view.client.List', {
 
         this.columns = [{
             header : 'Name',
-            dataIndex : 'name',
+            dataIndex : 'shortName',
             flex : 1
         }, {
-            header : 'Email',
-            dataIndex : 'email',
+            header : 'Typ',
+            dataIndex : 'clientType',
             flex : 1
         }];
 

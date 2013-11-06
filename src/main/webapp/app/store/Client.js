@@ -4,13 +4,11 @@ Ext.define('HO.store.Client', {
     autoLoad : true,
     autoSync :true,
     proxy : {
-        type : 'ajax',
+        type: 'rest',
         api : {
             read : 'rest/client/list',
-
             create : 'rest/client/add',
             update : 'rest/client/update',
-
             destroy : 'rest/client/delete'
         },
         reader : {
@@ -21,8 +19,7 @@ Ext.define('HO.store.Client', {
         },
         writer : {
             type : 'json',
-            writeAllFields : false,
-            root : 'data'
+            writeAllFields : false
         },
         listeners : {
             exception : function(proxy, response, operation) {

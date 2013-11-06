@@ -1,6 +1,5 @@
 package de.petri.homeoffice.resources;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,22 +54,25 @@ public class ClientResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/add")
-	public RestResponse addClient(Client client) {
-		return new RestResponse(true, Collections.singletonList(cs
-				.addClient(client)));
+	public RestResponse addClient(Client c) {
+
+		return new RestResponse(true,
+				Collections.singletonList(cs.addClient(c)));
 	}
 
 	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/update/{clientId}")
 	public RestResponse updateClient(
 			@PathParam(value = "clientId") Long clientId, Client newClient) {
 		Client c = cs.getClient(clientId);
 		c.setShortName(newClient.getShortName());
-		newClient = cs.updateClient(c);
-		return new RestResponse(true, Collections.singletonList(newClient));
+		
+		return new RestResponse(true, Collections.singletonList(cs.updateClient(c)));
 	}
 
 	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/delete/{clientId}")
 	public RestResponse deleteClient(
 			@PathParam(value = "clientId") Long clientId) {
