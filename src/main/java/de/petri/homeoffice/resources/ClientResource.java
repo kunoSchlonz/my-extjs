@@ -1,5 +1,7 @@
 package de.petri.homeoffice.resources;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import de.petri.homeoffice.model.Client;
 import de.petri.homeoffice.services.ClientService;
+import de.petri.homeoffice.util.RestResponse;
 
 @Path("/client")
 public class ClientResource {
@@ -42,35 +45,37 @@ public class ClientResource {
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Client> getAllClients() {
+	public RestResponse getAllClients() {
 		List<Client> clientList = cs.getAllClients();
 		System.out.println("Anz Clients: " + clientList.size());
-		return clientList;
+		return new RestResponse(true, clientList);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/add")
-	public Client addClient(Client client) {
-		return cs.addClient(client);
+	public RestResponse addClient(Client client) {
+		return new RestResponse(true, Collections.singletonList(cs
+				.addClient(client)));
 	}
 
 	@PUT
 	@Path("/update/{clientId}")
-	public Client updateClient(@PathParam(value = "clientId") Long clientId,
-			Client newClient) {
+	public RestResponse updateClient(
+			@PathParam(value = "clientId") Long clientId, Client newClient) {
 		Client c = cs.getClient(clientId);
 		c.setShortName(newClient.getShortName());
 		newClient = cs.updateClient(c);
-		return newClient;
+		return new RestResponse(true, Collections.singletonList(newClient));
 	}
 
 	@DELETE
 	@Path("/delete/{clientId}")
-	public Client deleteClient(@PathParam(value = "clientId") Long clientId) {
+	public RestResponse deleteClient(
+			@PathParam(value = "clientId") Long clientId) {
 		cs.deleteClient(clientId);
-		return null;
+		return new RestResponse(true);
 	}
 
 }

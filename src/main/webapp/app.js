@@ -1,16 +1,15 @@
 Ext.application({
-    name: 'HelloExt',
-    appFolder: 'app',
-    launch: function() {
+    appFolder : 'app',
+    name : 'HO',
+    controllers : ['Client'],
+    launch : function() {
+        console.log('launched');
         Ext.create('Ext.container.Viewport', {
-            layout: 'fit',
-            items: [
-                {
-                    xtype:'panel',
-                    title: 'Clients',
-                    html : 'List of clients will be shown here'
-                }
-            ]
+            layout : 'fit',
+            items : [{
+                title : 'Clients',
+                xtype : 'clientlist'
+            }]
         });
     }
 });
