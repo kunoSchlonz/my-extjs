@@ -65,10 +65,14 @@ public class ClientResource {
 	@Path("/update/{clientId}")
 	public RestResponse updateClient(
 			@PathParam(value = "clientId") Long clientId, Client newClient) {
+		RestResponse r = null;
+
 		Client c = cs.getClient(clientId);
 		c.setShortName(newClient.getShortName());
-		
-		return new RestResponse(true, Collections.singletonList(cs.updateClient(c)));
+		newClient = cs.updateClient(c);
+		r = new RestResponse(true, Collections.singletonList(newClient));
+
+		return r;
 	}
 
 	@DELETE

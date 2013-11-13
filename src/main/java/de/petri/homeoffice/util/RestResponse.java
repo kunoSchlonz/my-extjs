@@ -6,44 +6,47 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class RestResponse
-{
-    private Boolean success;
-    private List<?> data;
-    
-    public RestResponse()
-    {
-        this(true, Collections.EMPTY_LIST);
-    }
-    
-    public RestResponse(boolean success)
-    {
-        this(success, Collections.EMPTY_LIST);
-    }
-    
-    public RestResponse(boolean success, List<?> data)
-    {
-        this.success = success;
-        this.data = data;
-    }
+public class RestResponse {
+	private Boolean success;
+	private List<?> data;
+	private String message;
 
-    public Boolean getSuccess()
-    {
-        return success;
-    }
+	public RestResponse() {
+		this(true, Collections.EMPTY_LIST);
+	}
 
-    public void setSuccess(Boolean success)
-    {
-        this.success = success;
-    }
+	public RestResponse(boolean success) {
+		this(success, Collections.EMPTY_LIST);
+	}
 
-    public List<?> getData()
-    {
-        return data;
-    }
+	public RestResponse(boolean success, List<?> data) {
+		this.success = success;
+		this.data = data;
+		this.message = null;
+	}
 
-    public void setData(List<?> data)
-    {
-        this.data = data;
-    }
+	public Boolean getSuccess() {
+		return success;
+	}
+
+	public void setSuccess(Boolean success) {
+		this.success = success;
+	}
+
+	public List<?> getData() {
+		return data;
+	}
+
+	public void setData(List<?> data) {
+		this.data = data;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+
+	}
+	public String getMessage() {
+		return message;
+
+	}
 }
