@@ -24,14 +24,30 @@ public class Client {
 
 	@NotNull(message = "Bitte ein ClientTyp angeben.")
 	private ClientType clientType;
-	
-	private Date createDate = new Date();
 
-	
+	private Date createDate = new Date();
+	private Date modifyDate = null;
+	private Date inactiveFromDate = null;
+
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	public Date getInactiveFromDate() {
+		return inactiveFromDate;
+	}
+
+	public void setInactiveFromDate(Date inactiveFromDate) {
+		this.inactiveFromDate = inactiveFromDate;
+	}
+
 	/*
-	@ManyToOne
-	private User user;
-*/
+	 * @ManyToOne private User user;
+	 */
 	public Client() {
 
 	}
@@ -74,24 +90,19 @@ public class Client {
 		return createDate;
 	}
 
-
 	/**
 	 * @param user
 	 *            the user to set
 	 */
 	/*
-	public void setUser(User user) {
-		this.user = user;
-	}
-*/
+	 * public void setUser(User user) { this.user = user; }
+	 */
 	/**
 	 * @return the user
 	 */
 	/*
-	public User getUser() {
-		return user;
-	}
-*/
+	 * public User getUser() { return user; }
+	 */
 	public enum ClientType {
 		FIRMA, PRIVATPERSON
 
