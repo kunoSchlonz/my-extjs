@@ -9,11 +9,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-@NamedQueries({ @NamedQuery(name = Client.findByUser, query = "SELECT a FROM Client a") })
+@NamedQueries({ @NamedQuery(name = Client.findByUser, query = "SELECT a FROM Client a"),
+				@NamedQuery(name = Client.findActiveByUser, query = "SELECT a FROM Client a WHERE inactiveFromDate is null OR inactiveFromDate > now()")
+})
 @Entity
 public class Client {
 
 	public static final String findByUser = "Client.findByUser";
+	public static final String findActiveByUser = "Client.findActiveByUser";
 
 	@GeneratedValue
 	@Id

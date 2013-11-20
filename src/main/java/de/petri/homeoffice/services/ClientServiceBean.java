@@ -1,5 +1,6 @@
 package de.petri.homeoffice.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,6 +21,21 @@ public class ClientServiceBean implements ClientService {
 	@Resource
 	private SessionContext sessionContext;
 
+	
+	public List<Client> getAllActiveClients() {
+
+		TypedQuery<Client> query = em.createNamedQuery(Client.findActiveByUser,
+				Client.class);
+		// query.setParameter("user", getLoggedinUser());
+		List<Client> clientList = query.getResultList();
+		// transientes bisher gespendet Feld aktualisieren
+		// for(Client a: clientList) {
+		// Double bisherGespendet = getBisherGespendet(a);
+		// a.setBisherGespendet(bisherGespendet);
+		// }
+		return clientList;
+	}
+	
 	public List<Client> getAllClients() {
 
 		TypedQuery<Client> query = em.createNamedQuery(Client.findByUser,
@@ -47,20 +63,33 @@ public class ClientServiceBean implements ClientService {
 	}
 
 	public Client getClient(Long clientId) {
-		Client managedAktion = em.find(Client.class, clientId);
-		return managedAktion;
+		Client managedClient = em.find(Client.class, clientId);
+		return managedClient;
 	}
 
 	public Client updateClient(Client c) {
 		return em.merge(c);
 	}
 
+	
 	public void deleteClient(Long clientId) {
 		Client managedClient = getClient(clientId);
-		em.remove(managedClient);
+		managedClient.setInactiveFromDate(new Date());
+		em.merge(managedClient);
 	}
 
 	public void deleteClient(Client c) {
 		deleteClient(c.getId());
 	}
+
+	
+	public void destroyClient(Long clientId) {
+		Client managedClient = getClient(clientId);
+		em.remove(managedClient);
+	}
+	
+	public void destroyClient(Client c) {
+		destroyClient(c.getId());
+	}
+	
 }

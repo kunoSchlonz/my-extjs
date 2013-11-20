@@ -44,8 +44,8 @@ public class ClientResource {
 	@GET
 	@Path("/list")
 	@Produces(MediaType.APPLICATION_JSON)
-	public RestResponse getAllClients() {
-		List<Client> clientList = cs.getAllClients();
+	public RestResponse getAllActiveClients() {
+		List<Client> clientList = cs.getAllActiveClients();
 		System.out.println("Anz Clients: " + clientList.size());
 		return new RestResponse(true, clientList);
 	}
@@ -66,12 +66,10 @@ public class ClientResource {
 	public RestResponse updateClient(
 			@PathParam(value = "clientId") Long clientId, Client newClient) {
 		RestResponse r = null;
-
 		Client c = cs.getClient(clientId);
 		c.setShortName(newClient.getShortName());
 		newClient = cs.updateClient(c);
 		r = new RestResponse(true, Collections.singletonList(newClient));
-
 		return r;
 	}
 
@@ -84,4 +82,14 @@ public class ClientResource {
 		return new RestResponse(true);
 	}
 
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/destroy/{clientId}")
+	public RestResponse destroyClient(
+			@PathParam(value = "clientId") Long clientId) {
+		cs.destroyClient(clientId);
+		return new RestResponse(true);
+	}
+	
+	
 }

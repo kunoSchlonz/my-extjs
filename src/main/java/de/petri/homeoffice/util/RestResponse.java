@@ -47,6 +47,5 @@ public class RestResponse {
 	}
 	public String getMessage() {
 		return message;
-
 	}
 }

@@ -18,4 +18,8 @@ public interface ClientService {
 
 	Client getClient(Long clientId);
 
+	void destroyClient(Long clientId);
+
+	List<Client> getAllActiveClients();
+
 }

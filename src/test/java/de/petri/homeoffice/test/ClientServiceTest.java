@@ -71,49 +71,50 @@ public class ClientServiceTest {
 		Client c = TestDataFactory.createTestClient();
 		clientService.addClient(c);
 
-		List<Client> clist = clientService.getAllClients();
+		List<Client> clist = clientService.getAllActiveClients();
 		Assert.assertFalse(clist.size() == 0);
 
 		for (Iterator<Client> iterator = clist.iterator(); iterator.hasNext();) {
 			Client client = (Client) iterator.next();
 			clientService.deleteClient(client);
 		}
-		clist = clientService.getAllClients();
+		clist = clientService.getAllActiveClients();
 		Assert.assertTrue(clist.size() == 0);
 
 		c = null;
 		c = TestDataFactory.createTestClient("a");
 		clientService.addClient(c);
-		clist = clientService.getAllClients();
+		clist = clientService.getAllActiveClients();
 		Assert.assertFalse(clist.size() == 0);
 
 		for (Iterator<Client> iterator = clist.iterator(); iterator.hasNext();) {
 			Client client = (Client) iterator.next();
 			clientService.deleteClient(client.getId());
 		}
-		clist = clientService.getAllClients();
+		clist = clientService.getAllActiveClients();
 		Assert.assertTrue(clist.size() == 0);
 
 	}
 
 	@Test
-	public void testListClients() throws Exception {
+	public void testListActiveClients() throws Exception {
 		Assert.assertNotNull(clientService);
 		Assert.assertTrue(deleteAllClients());
-
-		for (int i = 0; i < 1000; i++) {
+		int r = 10;
+		for (int i = 0; i < r; i++) {
 			clientService.addClient(TestDataFactory
 					.createTestClient("aaa_" + i));
 		}
-		List<Client> clist = clientService.getAllClients();
+		List<Client> clist = clientService.getAllActiveClients();
+		System.out.println(clist.size());
 		Assert.assertTrue(clist.size() > 0);
-		Assert.assertTrue(clist.size() == 1000);
+		Assert.assertTrue(clist.size() == r);
 
 	}
 
 	public boolean deleteAllClients() {
 		boolean ret = true;
-		List<Client> clist = clientService.getAllClients();
+		List<Client> clist = clientService.getAllActiveClients();
 		System.out
 				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		System.out
@@ -127,7 +128,7 @@ public class ClientServiceTest {
 			Client client = (Client) iterator.next();
 			clientService.deleteClient(client);
 		}
-		clist = clientService.getAllClients();
+		clist = clientService.getAllActiveClients();
 		System.out
 				.println("##############>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		System.out
