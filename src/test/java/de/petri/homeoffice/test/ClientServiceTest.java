@@ -144,5 +144,4 @@ public class ClientServiceTest {
 
 		return ret;
 	}
-
 }
