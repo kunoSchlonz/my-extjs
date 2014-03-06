@@ -1,6 +1,8 @@
 package de.petri.homeoffice.resources;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -54,23 +56,34 @@ public class ClientResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/add")
-	public RestResponse addClient(Client c) {
-
-		return new RestResponse(true,
-				Collections.singletonList(cs.addClient(c)));
+	public RestResponse addClient(Collection<Client> cList) {
+		ArrayList<Client> newClientList = new ArrayList<Client>();
+		for (Iterator<Client> iterator = cList.iterator(); iterator.hasNext();) {
+			Client c = (Client) iterator.next();
+			newClientList.add(cs.addClient(c));
+		}
+		return new RestResponse(true, newClientList);
 	}
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/update/{clientId}")
-	public RestResponse updateClient(
-			@PathParam(value = "clientId") Long clientId, Client newClient) {
-		RestResponse r = null;
-		Client c = cs.getClient(clientId);
-		c.setShortName(newClient.getShortName());
-		newClient = cs.updateClient(c);
-		r = new RestResponse(true, Collections.singletonList(newClient));
-		return r;
+	@Path("/update")
+	public RestResponse updateClientL(Collection<Client> updatableClientList) {
+
+		ArrayList<Client> updatedClientList = new ArrayList<Client>();
+		for (Iterator<Client> iterator = updatableClientList.iterator(); iterator
+				.hasNext();) {
+			Client updatableClient = iterator.next();
+			long id = updatableClient.getId();
+
+			Client updatedClient = cs.getClient(id);
+			updatedClient.setShortName(updatableClient.getShortName());
+			updatedClient = cs.updateClient(updatedClient);
+			updatedClientList.add(updatedClient);
+
+		}
+
+		return new RestResponse(true, updatedClientList);
 	}
 
 	@DELETE
@@ -90,6 +103,5 @@ public class ClientResource {
 		cs.destroyClient(clientId);
 		return new RestResponse(true);
 	}
-	
-	
+
 }

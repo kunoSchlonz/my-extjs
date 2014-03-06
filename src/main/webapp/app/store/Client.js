@@ -5,6 +5,9 @@ Ext.define('HO.store.Client', {
     autoSync :true,
     proxy : {
         type: 'rest',
+        
+        // this is also important if you want to process one OR more records
+        appendId: false,
         api : {
             read : 'rest/client/list',
             create : 'rest/client/add',
@@ -19,6 +22,9 @@ Ext.define('HO.store.Client', {
         },
         writer : {
             type : 'json',
+            
+            /* this is very important so every request is sended in brackets */
+            allowSingle : false,
             writeAllFields : false
         },
         listeners : {

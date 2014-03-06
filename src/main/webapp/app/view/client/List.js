@@ -22,7 +22,8 @@ Ext.define('HO.view.client.List', {
             tooltip : 'When enabled, Store will execute Ajax requests as soon as a Record becomes dirty.',
             scope : this,
             toggleHandler : function(btn, pressed) {
-                this.store.autoSync = pressed;
+                var s = Ext.StoreMgr.get("Client");
+                s.autoSync = pressed;
             }
         }, {
             text : 'batch',
@@ -31,7 +32,9 @@ Ext.define('HO.view.client.List', {
             tooltip : 'When enabled, Store will batch all records for each type of CRUD verb into a single Ajax request.',
             scope : this,
             toggleHandler : function(btn, pressed) {
-                this.store.getProxy().batchActions = pressed;
+                var s = Ext.StoreMgr.get("Client");
+
+                s.getProxy().batchActions = pressed;
             }
         }, {
             text : 'writeAllFields',
@@ -40,7 +43,8 @@ Ext.define('HO.view.client.List', {
             tooltip : 'When enabled, Writer will write *all* fields to the server -- not just those that changed.',
             scope : this,
             toggleHandler : function(btn, pressed) {
-                this.store.getProxy().getWriter().writeAllFields = pressed;
+                var s = Ext.StoreMgr.get("Client");
+                s.getProxy().getWriter().writeAllFields = pressed;
             }
         }]
     }, {
@@ -52,14 +56,24 @@ Ext.define('HO.view.client.List', {
             iconCls : 'icon-save',
             text : 'Sync',
             scope : this,
-            handler : this.onSync
+            handler : function(){
+                var s = Ext.StoreMgr.get("Client");
+                s.sync();
+                
+            }
         }]
     }],
     title : 'All Clients',
     store : 'Client',
     initComponent : function() {
 
-        this.columns = [{
+        this.columns = [
+        {
+            header:'id',
+            dataIndex:'id',
+            flex:1
+        },
+        {
             header : 'Name',
             dataIndex : 'shortName',
             flex : 1
