@@ -4,7 +4,7 @@ Ext.define('HO.view.client.List', {
     dockedItems : [{
         xtype : 'toolbar',
         items : [{
-            iconCls : 'icon-add',
+            glyph: 'xf055@FontAwesome',
             text : 'Add',
             action : 'add'
         }]
@@ -19,9 +19,15 @@ Ext.define('HO.view.client.List', {
             text : 'autoSync',
             enableToggle : true,
             pressed : true,
+            glyph: 'xf046@FontAwesome',
             tooltip : 'When enabled, Store will execute Ajax requests as soon as a Record becomes dirty.',
             scope : this,
             toggleHandler : function(btn, pressed) {
+                if(pressed){
+                    btn.setGlyph('xf046@FontAwesome');
+                }else{
+                    btn.setGlyph('xf096@FontAwesome');
+                }
                 var s = Ext.StoreMgr.get("Client");
                 s.autoSync = pressed;
             }
@@ -29,9 +35,15 @@ Ext.define('HO.view.client.List', {
             text : 'batch',
             enableToggle : true,
             pressed : true,
+            glyph: 'xf046@FontAwesome',
             tooltip : 'When enabled, Store will batch all records for each type of CRUD verb into a single Ajax request.',
             scope : this,
             toggleHandler : function(btn, pressed) {
+                if(pressed){
+                    btn.setGlyph('xf046@FontAwesome');
+                }else{
+                    btn.setGlyph('xf096@FontAwesome');
+                }
                 var s = Ext.StoreMgr.get("Client");
 
                 s.getProxy().batchActions = pressed;
@@ -40,9 +52,15 @@ Ext.define('HO.view.client.List', {
             text : 'writeAllFields',
             enableToggle : true,
             pressed : false,
+            glyph: 'xf096@FontAwesome',
             tooltip : 'When enabled, Writer will write *all* fields to the server -- not just those that changed.',
             scope : this,
             toggleHandler : function(btn, pressed) {
+                if(pressed){
+                    btn.setGlyph('xf046@FontAwesome');
+                }else{
+                    btn.setGlyph('xf096@FontAwesome');
+                }
                 var s = Ext.StoreMgr.get("Client");
                 s.getProxy().getWriter().writeAllFields = pressed;
             }
@@ -53,8 +71,9 @@ Ext.define('HO.view.client.List', {
         dock : 'bottom',
         ui : 'footer',
         items : ['->', {
-            iconCls : 'icon-save',
+            glyph: 'xf0ee@FontAwesome',
             text : 'Sync',
+            scale: 'large',
             scope : this,
             handler : function(){
                 var s = Ext.StoreMgr.get("Client");
