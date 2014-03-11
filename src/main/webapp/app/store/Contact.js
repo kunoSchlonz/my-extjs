@@ -2,7 +2,7 @@ Ext.define('HO.store.Contact', {
     extend : 'Ext.data.Store',
     model : 'HO.model.Contact',
     autoLoad : true,
-    autoSync :true,
+    autoSync : true,
     proxy : {
         type: 'rest',
         
