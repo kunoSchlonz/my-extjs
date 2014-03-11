@@ -9,14 +9,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-@NamedQueries({ @NamedQuery(name = Client.findByUser, query = "SELECT a FROM Client a"),
-				@NamedQuery(name = Client.findActiveByUser, query = "SELECT a FROM Client a WHERE inactiveFromDate is null OR inactiveFromDate > now()")
+@NamedQueries({ @NamedQuery(name = Contact.findByUser, query = "SELECT a FROM Contact a"),
+				@NamedQuery(name = Contact.findActiveByUser, query = "SELECT a FROM Contact a WHERE inactiveFromDate is null OR inactiveFromDate > now()")
 })
 @Entity
-public class Client {
+public class Contact {
 
-	public static final String findByUser = "Client.findByUser";
-	public static final String findActiveByUser = "Client.findActiveByUser";
+	public static final String findByUser = "Contact.findByUser";
+	public static final String findActiveByUser = "Contact.findActiveByUser";
 
 	@GeneratedValue
 	@Id
@@ -25,8 +25,8 @@ public class Client {
 	@NotNull(message = "Bitte eine Kurzbezeichnung angeben.")
 	private String shortName;
 
-	@NotNull(message = "Bitte ein ClientTyp angeben.")
-	private ClientType clientType;
+	@NotNull(message = "Bitte ein ContactTyp angeben.")
+	private ContactType contactType;
 
 	private Date createDate = new Date();
 	private Date modifyDate = null;
@@ -51,7 +51,7 @@ public class Client {
 	/*
 	 * @ManyToOne private User user;
 	 */
-	public Client() {
+	public Contact() {
 
 	}
 
@@ -63,12 +63,12 @@ public class Client {
 		this.shortName = shortName;
 	}
 
-	public ClientType getClientType() {
-		return clientType;
+	public ContactType getContactType() {
+		return contactType;
 	}
 
-	public void setClientType(ClientType clientType) {
-		this.clientType = clientType;
+	public void setContactType(ContactType contactType) {
+		this.contactType = contactType;
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class Client {
 	/*
 	 * public User getUser() { return user; }
 	 */
-	public enum ClientType {
+	public enum ContactType {
 		FIRMA, PRIVATPERSON
 
 	}

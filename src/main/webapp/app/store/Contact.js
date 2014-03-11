@@ -1,6 +1,6 @@
-Ext.define('HO.store.Client', {
+Ext.define('HO.store.Contact', {
     extend : 'Ext.data.Store',
-    model : 'HO.model.Client',
+    model : 'HO.model.Contact',
     autoLoad : true,
     autoSync :true,
     proxy : {
@@ -9,10 +9,10 @@ Ext.define('HO.store.Client', {
         // this is also important if you want to process one OR more records
         appendId: false,
         api : {
-            read : 'rest/client/list',
-            create : 'rest/client/add',
-            update : 'rest/client/update',
-            destroy : 'rest/client/delete'
+            read : 'rest/contact/list',
+            create : 'rest/contact/add',
+            update : 'rest/contact/update',
+            destroy : 'rest/contact/delete'
         },
         reader : {
             type : 'json',
