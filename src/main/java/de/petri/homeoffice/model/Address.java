@@ -1,7 +1,7 @@
 package de.petri.homeoffice.model;
 
 public class Address {
-	private Client client;
+	private Contact contact;
 	private String addressType;
 	private String title;
 	private String addressPart1;
@@ -19,11 +19,11 @@ public class Address {
 	private String phone;
 	private String email;
 
-	public Address(Client client, String addressType, String title,
+	public Address(Contact contact, String addressType, String title,
 			String addressPart1, String salutation1, String street, String plz,
 			String city) {
 		super();
-		this.client = client;
+		this.contact = contact;
 		this.addressType = addressType;
 		this.title = title;
 		this.addressPart1 = addressPart1;
@@ -33,12 +33,12 @@ public class Address {
 		this.city = city;
 	}
 
-	public Client getClient() {
-		return client;
+	public Contact getContact() {
+		return contact;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 	public String getAddressType() {
